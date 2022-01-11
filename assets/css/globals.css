@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    @media (min-width: 1536px){
+        .container {
+                width: 1280px;
+    }}
+}
