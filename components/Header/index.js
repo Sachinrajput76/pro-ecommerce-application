@@ -1,10 +1,13 @@
 import { useState, useEffect, useRef } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux'
 import useOnClickOutside from 'use-onclickoutside';
 import Logo from '../../assets/icons/logo';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import DropDownComp from '../drop-down';
+import { loadUser } from '../../store/actions/authAction'
+import { signOut } from 'next-auth/client'
+
 
 const Header = ({ isErrorPage }) => {
   const router = useRouter();
@@ -16,6 +19,23 @@ const Header = ({ isErrorPage }) => {
   const [searchOpen, setSearchOpen] = useState(false);
   const navRef = useRef(null);
   const searchRef = useRef(null);
+
+
+  const dispatch = useDispatch()
+
+  const { user, loading } = useSelector(state => state.loadedUser)
+
+  useEffect(() => {
+      if (!user) {
+          dispatch(loadUser())
+      }
+  }, [dispatch, user])
+
+
+  const logoutHandler = () => {
+      signOut();
+  }
+
 
   const headerClass = () => {
     if (window.pageYOffset === 0) {
@@ -48,10 +68,11 @@ const Header = ({ isErrorPage }) => {
   useOnClickOutside(navRef, closeMenu);
   useOnClickOutside(searchRef, closeSearch);
 
+  const optionsUsd2 = [
+    { name: "Login", path: "/login" }
+  ]
   const optionsUsd = [
-    { name: "First", path: "#1" },
-    { name: "Second", path: "#2" },
-    { name: "Thrid", path: "#3" }
+    { name: "Logout", path: "/logout" }
   ]
 
   return (
@@ -68,7 +89,7 @@ const Header = ({ isErrorPage }) => {
           <Link href="/">
             <a href="/">Home</a>
           </Link>
-          <a href="/admin">Admin </a>
+          {user ? <a href="/admin">Admin </a> : ""}
           <Link href="/products">
             <a>Products</a>
           </Link>
@@ -94,14 +115,34 @@ const Header = ({ isErrorPage }) => {
               }
             </button>
           </Link>
-          <Link href="/login">
-            <button className="site-header__btn-avatar"><i className="icon-avatar"></i></button>
+
+
+
+{user ?<Link href='/'>
+                <a className="dropdown-item text-danger" onClick={logoutHandler}>Logout</a>
+        </Link>
+ :
+    !loading && <Link href='/login'>
+        <a className="btn btn-danger px-4 text-white login-header-btn float-right">Login</a>
+    </Link>
+}
+
+          {/* <Link href="/login"> */}
+            {/* <button className="site-header__btn-avatar"><i className="icon-avatar"></i></button> */}
             {/* <DropDownComp
             name={<i className="icon-avatar"></i>}
             options={optionsUsd}
-            style={"bg-transparent"}
+            style={"bg-transparent focus:bg-transparent hover:bg-transparent"}
           /> */}
-          </Link>
+          {/* </Link> */}
+          {/* <Link href="/" onClick={logoutHandler}> */}
+            {/* <button className="site-header__btn-avatar">Logout</button> */}
+            {/* <DropDownComp
+            name={<i className="icon-avatar"></i>}
+            options={optionsUsd}
+            style={"bg-transparent focus:bg-transparent hover:bg-transparent"}
+          /> */}
+          {/* </Link> */}
           <button
             onClick={() => setMenuOpen(true)}
             className="site-header__btn-menu">

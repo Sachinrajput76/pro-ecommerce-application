@@ -2,14 +2,15 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunkMiddleware from "redux-thunk";
 import { createWrapper, HYDRATE } from 'next-redux-wrapper';
 import cartReducer from './reducers/cart';
-import userReducer from './reducers/user';
-import { authReducer } from './reducers/authReducers';
+import {userReducer} from './reducers/user';
+import { authReducer, loadedUserReducer } from './reducers/authReducers';
 
 //COMBINING ALL REDUCERS
 const combinedReducer = combineReducers({
   cart: cartReducer,
   user: userReducer,
-  auth: authReducer
+  auth: authReducer,
+  loadedUser: loadedUserReducer
 });
 
 // BINDING MIDDLEWARE

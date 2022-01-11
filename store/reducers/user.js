@@ -15,7 +15,7 @@ const initialState = {
 }
 
 
-const userReducer = (state = initialState, action) => {
+export const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case TOGGLE_FAV_PRODUCT:
       const index = state.favProducts.includes(action.id);
@@ -70,5 +70,37 @@ const userReducer = (state = initialState, action) => {
       return state;
   }
 }
+// Load user reducer
+export const loadedUserReducer = (state = { loading: true, user: null }, action) => {
+  switch (action.type) {
 
-export default userReducer;
+      case LOAD_USER_REQUEST:
+          return {
+              loading: true,
+              isAuthenticated: false
+          }
+
+      case LOAD_USER_SUCCESS:
+          return {
+              loading: false,
+              isAuthenticated: true,
+              user: action.payload
+          }
+
+      case LOAD_USER_FAIL:
+          return {
+              loading: false,
+              isAuthenticated: false,
+              error: action.payload
+          }
+
+      case CLEAR_ERRORS:
+          return {
+              ...state,
+              error: null
+          }
+
+      default:
+          return state
+  }
+}
