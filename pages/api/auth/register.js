@@ -1,5 +1,4 @@
 import nc from 'next-connect'
-
 import dbConnect from '../../../config/dbConnect'
 
 import { registerUser } from '../../../controllers/authControllers'

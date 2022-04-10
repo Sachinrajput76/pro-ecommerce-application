@@ -1,7 +1,7 @@
 import Register from '../components/auth/Register'
 import Layout from '../layouts/Main'
 
-import { getSession } from 'next-auth/client'
+import getSession from 'next-auth'
 
 export default function RegisterPage() {
   return (
@@ -14,7 +14,7 @@ export default function RegisterPage() {
 export async function getServerSideProps(context) {
 
   const session = await getSession({ req: context.req })
-  console.log("session from register", session)
+
   if (session) {
     return {
       redirect: {

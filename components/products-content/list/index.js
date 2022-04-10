@@ -22,7 +22,7 @@ const ProductsContent = () => {
               id={item._id}
               price={item.price}
               currentPrice={item.currentPrice}
-              productImage={item.images[0].url}
+              productImage={item.images.length !== 0 && item.images[0].url}
               name={item.name}
             />
           ))}

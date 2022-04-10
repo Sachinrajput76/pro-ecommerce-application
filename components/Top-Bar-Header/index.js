@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import useOnClickOutside from 'use-onclickoutside';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import DropDownComp from '../drop-down';
+
 const TopBarHeader = ({ isErrorPage }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const closeMenu = () => {
@@ -13,18 +13,6 @@ const TopBarHeader = ({ isErrorPage }) => {
   const dropDownRef = useRef(null);
   // on click outside
   useOnClickOutside(dropDownRef, closeMenu);
-
-  const optionsUsd = [
-    { name: "First", path: "#1" },
-    { name: "Second", path: "#2" },
-    { name: "Thrid", path: "#3" }
-  ]
-  const optionsEnglish = [
-    { name: "First", path: "#1" },
-    { name: "Second", path: "#2" },
-    { name: "Thrid", path: "#3" }
-  ]
-
   return (
     <div className="top-bar_header">
       <div className="container">
@@ -43,17 +31,14 @@ const TopBarHeader = ({ isErrorPage }) => {
           </div>
           <div className="Top-bar_content">
             <ul>
-              <li>
-                <DropDownComp
-                  name="USD"
-                  options={optionsUsd}
-                />
+              <li className="Drop-down" ref={dropDownRef} onClick={() => setMenuOpen(!menuOpen)}>English <i className="icon-drop-down" />
+                <ul className={`item ${menuOpen ? 'Drop-down--open' : 'Drop-down--close'}`}>
+                  <li><a>one</a></li>
+                  <li><a>two</a></li>
+                  <li><a>three</a></li>
+                </ul>
               </li>
-              <li>
-                <DropDownComp
-                  name="English"
-                  options={optionsEnglish}
-                />
+              <li>USD <i className="icon-drop-down" />
               </li>
               <li>Login</li>
               <li>Wishlist</li>

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import Link from 'next/link';
 import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux';
-import { registerUser, clearErrors } from '../../store/actions/authAction'
+import { registerUser, clearErrors } from '../../store/actions/userActions'
 import { notify } from '../../utils/utility'
 import { messages } from "../../utils/constants"
 

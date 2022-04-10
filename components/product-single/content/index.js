@@ -80,7 +80,7 @@ const Content = ({ product, setPicColor, picColor }) => {
             <div className="select-wrapper">
               <select onChange={onSelectChange}>
                 <option>Choose size</option>
-                {product.sizes.map(type => (
+                {productsSizes.map(type => (
                   <option value={type.label}>{type.label}</option>
                 ))}
               </select>

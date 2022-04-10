@@ -40,7 +40,7 @@ const ProductsCarousel = ({ products }) => {
               currentPrice={item.currentPrice}
               key={item._id}
               id={item._id}
-              productImage={item.images[0].url}
+              productImage={item.images.length !== 0 && item.images[0].url}
               name={item.name}
             />
           </SwiperSlide>

@@ -1,7 +1,7 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
-import SwiperCore, { EffectFade, Navigation, A11y } from 'swiper';
+import SwiperCore, { EffectFade, Navigation } from 'swiper';
 
-SwiperCore.use([EffectFade, Navigation, A11y]);
+SwiperCore.use([EffectFade, Navigation]);
 
 const PageIntro = () => {
 
